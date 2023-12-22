@@ -31,12 +31,12 @@ router.post("/login", async (req, res) => {
         const accessToken = jwt.sign(
           { email: checkMail.Email },
           process.env.ACCESS_TOKEN_SECRET,
-          { expiresIn: "1s" }
+          { expiresIn: "20s" }
         );
         const refreshToken = jwt.sign(
           { email: checkMail.Email, lastname: checkMail.lastName },
           process.env.REFRESH_TOKEN_SECRET,
-          { expiresIn: "2s" }
+          { expiresIn: "50s" }
         );
         res.json({
           accesstoken: accessToken,
@@ -54,8 +54,9 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/refresh", async (req, res) => {
+  console.log(req.body.refreshToken);
   try {
-    let refreshToken = req?.query?.refreshtoken;
+    let refreshToken = req?.body?.refreshtoken;
     const checkRefreshToken = jwt.verify(
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET
