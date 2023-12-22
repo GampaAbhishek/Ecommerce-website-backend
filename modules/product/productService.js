@@ -10,6 +10,10 @@ async function getAllProducts() {
     return await products.find();
 }
 
+async function getById(id){
+    return await products.findById(id)
+}
+
 async function deleteOne(id) {
     return await products.findByIdAndDelete(convertObjectId(id));
 }
@@ -23,4 +27,4 @@ function convertObjectId(id) {
     return new mongoose.Types.ObjectId(id);
 }
 
-module.exports = { createProduct, getAllProducts, deleteOne, updateData };
+module.exports = { createProduct, getAllProducts, deleteOne, updateData,getById };

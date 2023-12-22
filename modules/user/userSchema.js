@@ -4,16 +4,19 @@ const schemauser = new mongoose.Schema(
   {
     userName: {
       type: String,
+      unique: false,
     },
     firstName: {
       type: String,
+      unique: false,
     },
     lastName: {
       type: String,
+      unique: false,
     },
-    email: { type: String, sparse: true },
+    email: { type: String, sparse: true, unique: false },
   },
-  { strict: false }
+  { strict: false, unique: false }
 );
 
 module.exports = mongoose.model("users", schemauser);

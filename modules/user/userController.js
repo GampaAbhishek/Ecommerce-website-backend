@@ -8,12 +8,14 @@ const validationhandler = require("../../utility/achievesrp");
 const Person = require("./userService");
 
 router.post("/register", async (req, res) => {
+  console.log(req.body);
   try {
     let resp = await Person.createUser(req.body);
-    res.status(200).json(resp);
+    console.log(resp);
+    res.status(200).send(resp);
   } catch (err) {
     console.log(err);
-    res.status(500).json(validationhandler(err));
+    res.status(500).json(err);
   }
 });
 
@@ -29,12 +31,12 @@ router.post("/login", async (req, res) => {
         const accessToken = jwt.sign(
           { email: checkMail.Email },
           process.env.ACCESS_TOKEN_SECRET,
-          { expiresIn: "10m" }
+          { expiresIn: "1s" }
         );
         const refreshToken = jwt.sign(
           { email: checkMail.Email, lastname: checkMail.lastName },
           process.env.REFRESH_TOKEN_SECRET,
-          { expiresIn: "1d" }
+          { expiresIn: "2s" }
         );
         res.json({
           accesstoken: accessToken,

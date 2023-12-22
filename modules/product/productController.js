@@ -43,6 +43,16 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/productdetails/:id",async(req,res)=>{
+  const id = req.params.id
+  try {
+  const rest = await Person.getById(id);
+  res.status(200).json({ data: rest, message: "success" });
+  }catch (err) {
+    res.status(500).json(validationhandler(err));
+  }
+})
+
 router.delete("/:id", async (req, res) => {
   try {
     const resp = await Person.deleteOne(req.params.id);
