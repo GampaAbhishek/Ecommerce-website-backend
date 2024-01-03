@@ -8,7 +8,6 @@ const validationhandler = require("../../utility/achievesrp");
 const Person = require("./userService");
 
 router.post("/register", async (req, res) => {
-  console.log(req.body);
   try {
     let resp = await Person.createUser(req.body);
     console.log(resp);
@@ -31,12 +30,12 @@ router.post("/login", async (req, res) => {
         const accessToken = jwt.sign(
           { email: checkMail.Email },
           process.env.ACCESS_TOKEN_SECRET,
-          { expiresIn: "20s" }
+          { expiresIn: "20m" }
         );
         const refreshToken = jwt.sign(
           { email: checkMail.Email, lastname: checkMail.lastName },
           process.env.REFRESH_TOKEN_SECRET,
-          { expiresIn: "50s" }
+          { expiresIn: "1d" }
         );
         res.json({
           accesstoken: accessToken,

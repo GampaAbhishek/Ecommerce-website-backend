@@ -9,6 +9,6 @@ const userRoutes = require('../modules/user/userController');
 const productRoutes = require('../modules/product/productController');
 
 router.use('/product', productRoutes);
-router.use('/people', userRoutes);
+router.use('/people',  userRoutes);
 
 module.exports = router;

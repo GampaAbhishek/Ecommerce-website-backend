@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 
-const storage = multer.memoryStorage(); 
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 const Person = require("./productService");
@@ -10,18 +10,21 @@ const validationhandler = require("../../utility/achievesrp");
 
 router.post("/upload", upload.single("image"), async (req, res) => {
   try {
-    const productName = req.body.productName;
-    const productDescription = req.body.productDescription;
-    const rate = req.body.rate;
+    // const productName = req.body.productName;
+    // const productDescription = req.body.productDescription;
+    // const rate = req.body.rate;
 
-    const imageBuffer = req.file.buffer;
+    // const imageBuffer = req.file.buffer;
 
-    const resp = await Person.createProduct({
-      productName,
-      productDescription,
-      rate,
-      image: imageBuffer, 
-    });
+    const data = req.body;
+    // console.log("VODY----", data);
+    const resp = await Person.createProduct(
+      // productName:"jdcsd",
+      // productDescription,
+      // rate,
+      // image: imageBuffer,
+      data
+    );
 
     res.status(200).json({
       data: resp,
@@ -36,22 +39,22 @@ router.post("/upload", upload.single("image"), async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const rest = await Person.getAllProducts();
-    console.log(rest);
+    // console.log(rest);
     res.status(200).json({ data: rest, message: "success" });
   } catch (err) {
     res.status(500).json(validationhandler(err));
   }
 });
 
-router.get("/productdetails/:id",async(req,res)=>{
-  const id = req.params.id
+router.get("/productdetails/:id", async (req, res) => {
+  const id = req.params.id;
   try {
-  const rest = await Person.getById(id);
-  res.status(200).json({ data: rest, message: "success" });
-  }catch (err) {
+    const rest = await Person.getById(id);
+    res.status(200).json({ data: rest, message: "success" });
+  } catch (err) {
     res.status(500).json(validationhandler(err));
   }
-})
+});
 
 router.delete("/:id", async (req, res) => {
   try {

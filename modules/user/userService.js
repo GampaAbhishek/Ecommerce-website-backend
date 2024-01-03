@@ -3,11 +3,11 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
 async function createUser(data) {
-  let salt = await bcrypt.genSalt(10);
-  const bcryptpassword = await bcrypt.hash(data?.password, salt);
-  data.password = bcryptpassword;
-  data.firstName = "tytweyutrewuywwett";
-  data.lastName = "hjhdjghgjhghjttt";
+  // let salt = await bcrypt.genSalt(10);
+  // const bcryptpassword = await bcrypt.hash(data?.password, salt);
+  // data.password = bcryptpassword;
+  // data.firstName = "tytweyutrewuywwett";
+  // data.lastName = "hjhdjghgjhghjttt";
   const newUser = new user(data);
   return await newUser.save();
 }
