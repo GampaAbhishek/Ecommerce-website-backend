@@ -25,6 +25,7 @@ router.post("/upload", upload.single("image"), async (req, res) => {
       // image: imageBuffer,
       data
     );
+    
 
     res.status(200).json({
       data: resp,
